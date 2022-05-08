@@ -73,7 +73,6 @@ app.post('/login', (req, res) => {
     'SELECT * FROM utilizadores WHERE nome = ? AND password = ?',
     [username, password],
     (err, result) => {
-      console.log(result);
       if (err) {
         return res.send({ err: err });
       }
