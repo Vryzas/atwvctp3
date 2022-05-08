@@ -31,7 +31,7 @@ const db = mysql.createPool({
 
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [process.env.CLIENT],
     methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
     credentials: true,
   })
@@ -73,14 +73,16 @@ app.post('/login', (req, res) => {
     'SELECT * FROM utilizadores WHERE nome = ? AND password = ?',
     [username, password],
     (err, result) => {
+      console.log(result);
       if (err) {
-        res.send({ err: err });
+        return res.send({ err: err });
+      }
+      if (!result) {
+        return res.send({ message: 'Nome de Utilizador ou Password errado!' });
       }
       if (result.length > 0) {
         req.session.user = result;
-        res.send(result);
-      } else {
-        res.send({ message: 'Nome de Utilizador ou Password errado!' });
+        return res.send(result);
       }
     }
   );
@@ -268,7 +270,7 @@ app.post('/update', (req, res) => {
 //logout
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('http://localhost:3000/');
+  res.redirect(process.env.CLIENT);
 });
 
 app.listen(3001, () => {

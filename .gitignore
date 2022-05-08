@@ -136,3 +136,4 @@ config.env
 workspace.code-workspace
 database.sql
 .prettierrc
+server/config.env
