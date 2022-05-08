@@ -132,7 +132,7 @@ dist
 
 **/node_modules
 */starter/.prettierrc
-config.env
+*/config.env
 workspace.code-workspace
 database.sql
 .prettierrc
